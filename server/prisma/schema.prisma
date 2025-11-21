@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  username    String   @unique
+  password    String
+  avatar      String?
+  isConfirmed Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  emailConfirmationTokens EmailConfirmationToken[]
+  posts                   Post[]
+  votes                   Vote[]
+  topicFollows            UserTopicFollow[]
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  posts Post[] @relation("PostTags")
+}
+
+model Topic {
+  id          Int                     @id @default(autoincrement())
+  name        String                  @unique
+  avatar      String
+  slug        String                  @unique
+  posts       Post[]
+  followers   UserTopicFollow[]
+}
+
+enum VoteTypes {
+  like
+  dislike
+}
+
+model Vote {
+  userId Int
+  postId Int
+  type   VoteTypes
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@id([userId, postId])
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  tags      Tag[]    @relation("PostTags")
+  authorId  Int
+  topicId   Int
+  image     String?
+  video     String?
+  votes     Vote[]
+  createdAt DateTime @default(now())
+
+  author User  @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  topic  Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+}
+
+model EmailConfirmationToken {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  token     String   @unique
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserTopicFollow {
+  userId    Int
+  topicId   Int
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@id([userId, topicId])
+}
