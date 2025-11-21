@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-stone-600) var(--color-stone-950);
+}
+
+body {
+  color: #ffffff;
+  background-color: var(--color-stone-950);
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  transition: 0.2s;
+}
+
+a:hover {
+  color: var(--color-blue-400);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--color-stone-950);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-stone-600);
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-stone-500);
+}
