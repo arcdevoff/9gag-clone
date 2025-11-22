@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <div className="fixed top-0 left-0 right-0 z-500 bg-stone-950 py-3 px-4 border-b border-stone-800">
       <div className="flex justify-between container mx-auto px-0 sm:px-3 lg:px-25">
-        <div className="flex items-center">
+        <div className="flex items-center ">
           <button
             onBlur={() => dispatch(setSidebar({ isVisible: false }))}
             onClick={() =>
