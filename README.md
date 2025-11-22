@@ -1,5 +1,7 @@
 # 9GAG Clone --- Fullstack Open Source Project
 
+![screen](https://arcdevoff.site/portfolio/9gag.png)
+
 A fullstack open-source 9GAG-style platform built with **NestJS**,
 **Prisma**, **Next.js 15**, and **PostgreSQL**.\
 Includes authentication, posts with images or videos, tags, topics,
