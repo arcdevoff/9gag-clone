@@ -55,7 +55,8 @@ const Header = () => {
             }}
             className="flex gap-2 items-center bg-stone-800 px-6 font-bold py-2 rounded-full hover:bg-stone-700 transition-colors"
           >
-            <Pencil size={19} /> Create
+            <Pencil size={19} />{" "}
+            <span className="hidden sm:inline-block">Create</span>
           </button>
 
           {user?.username ? (
